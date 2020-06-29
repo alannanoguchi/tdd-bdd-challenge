@@ -1,4 +1,6 @@
+// Test Runner
 const mocha = require("mocha")
+// Assertion Library
 const chai = require("chai")
 const utils = require("../utils")
 const expect = chai.expect
@@ -25,8 +27,21 @@ it("should say hello", function() {
 // 4. Finally see if you would like to refactor your code at all.
 // This is called "Red-Green-Refactor"
 // ========================================================
+it('should calculate area', function() {
+  const area = utils.area(2, 3)
+  expect(area).to.be.gt(0)
+  expect(area).to.eql(6)
+})
 
+it('should calculate perimeter', function() {
+  const perimeter = utils.perimeter(2, 3)
+  expect(perimeter).to.eql(10)
+})
 
+it('should calculate the area of a circle', function() {
+  const circleArea = utils.circleArea(4)
+  expect(circleArea).to.eql(50.24)
+})
 
 
 // ========================================================
@@ -50,13 +65,32 @@ it("Should create a new (object) Item with name and price", function() {
   expect(item).to.have.property("quantity", 1)
 })
 
-it("Should return an array containing all items in cart")
+it("Should return an array containing all items in cart", function() {
+  const cart = utils.getShoppingCart()
+  expect(cart).to.be.a('array')
 
-it("Should add a new item to the shopping cart")
+})
 
-it("Should return the number of items in the cart")
+it("Should add a new item to the shopping cart", function (){
+  const item = utils.createItem("apple", 0.99)
+  utils.addItemToCart(item)
+  const cart = utils.getShoppingCart()
+  expect(cart.length).to.equal(1)
+})
 
-it("Should remove items from cart")
+it("Should return the number of items in the cart", function() {
+  const item = utils.createItem("apple", 0.99)
+  utils.addItemToCart(item)
+  expect(item).to.have.property("quantity", 1)
+})
+
+it("Should remove items from cart", function() {
+  const item = utils.createItem("apple", 0.99)
+  utils.addItemToCart(item)
+  expect(utils.getNumItemsInCart()).to.equal(1)
+  utils.removeItemFromCart(item)
+  expect(utils.getNumItemsInCart()).to.equal(0)
+})
 
 // ========================================================
 // Stretch Challenges
